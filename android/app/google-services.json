@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "862371910242",
+    "project_id": "flutter-759e6",
+    "storage_bucket": "flutter-759e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862371910242:android:3b1da3d199673700e0373b",
+        "android_client_info": {
+          "package_name": "com.MRFox.message"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY3kbSsNrSbrMPIoYMM-3rLfMsu6-bK94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
