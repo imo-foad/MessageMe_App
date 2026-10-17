@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:message/widgets/my_button.dart';
 
 class SignInScreen extends StatefulWidget {
+  static const String screenRoute = '/signIn_screen';
   const SignInScreen({super.key});
 
   @override
@@ -41,9 +42,8 @@ class _SignInScreenState extends State<SignInScreen> {
 }
 
 class RegisterField extends StatelessWidget {
-  const RegisterField({super.key,required this.hintText});
+  const RegisterField({super.key, required this.hintText});
   final String hintText;
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,10 @@ class RegisterField extends StatelessWidget {
         onChanged: (value) {},
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 10.0,
+            horizontal: 20.0,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),

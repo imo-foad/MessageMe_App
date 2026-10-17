@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:message/widgets/MessageInput.dart';
 
 class ChatScreen extends StatefulWidget {
+  static const String screenRoute = '/chat_Screen';
+
   const new({super.key});
 
   @override
@@ -48,10 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(),
-            MessageInput(),
-          ],
+          children: [Container(), MessageInput()],
         ),
       ),
     );

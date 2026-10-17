@@ -17,7 +17,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: ChatScreen(),
+      initialRoute: WelcomeScreen.screenRoute,
+      routes: {
+        WelcomeScreen.screenRoute:(context) => WelcomeScreen(),
+        SignInScreen.screenRoute:(context) => SignInScreen(),
+        RegistrationScreen.screenRoute:(context) => RegistrationScreen(),
+        ChatScreen.screenRoute:(context) => ChatScreen(),
+      },
     );
   }
 }
