@@ -3,7 +3,7 @@ import 'package:message/widgets/my_button.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String screenRoute = '/registration_screen';
-  
+
   const RegistrationScreen({super.key});
 
   @override
@@ -11,6 +11,8 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +28,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Image.asset('assets/images/logo.png'),
             ),
             SizedBox(height: 50.0),
-            RegisterField(hintText: 'Enter your email'),
+            RegisterField(
+              hintText: 'Enter your email',
+              onChanged: (value) {
+                email = value;
+              },
+              obscureText:false,
+            ),
             SizedBox(height: 15.0),
-            RegisterField(hintText: 'Enter your password'),
+            RegisterField(
+              hintText: 'Enter your password',
+              onChanged: (value) {
+                password = value;
+              },
+              obscureText:true,
+            ),
             SizedBox(height: 20.0),
             MyButton(
               color: Colors.blue[800]!,
               title: 'Register',
-              onPressed: () {},
+              onPressed: () {
+                print(email);
+                print(password);
+              },
             ),
           ],
         ),
@@ -43,15 +60,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 }
 
 class RegisterField extends StatelessWidget {
-  const RegisterField({super.key, required this.hintText});
+  RegisterField({
+    super.key,
+     required this.hintText,
+     required this.onChanged,
+     required this.obscureText
+  });
+  
   final String hintText;
+  final ValueChanged<String> onChanged;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
-        onChanged: (value) {},
+        obscureText: obscureText,
+        onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
           contentPadding: EdgeInsets.symmetric(

@@ -1,10 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:message/screens/chat_Screen.dart';
 import 'package:message/screens/registration_screen.dart';
 import 'package:message/screens/signIn_screen.dart';
 import 'package:message/screens/welcomeScreen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,12 +22,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: WelcomeScreen.screenRoute,
       routes: {
-        WelcomeScreen.screenRoute:(context) => WelcomeScreen(),
-        SignInScreen.screenRoute:(context) => SignInScreen(),
-        RegistrationScreen.screenRoute:(context) => RegistrationScreen(),
-        ChatScreen.screenRoute:(context) => ChatScreen(),
+        WelcomeScreen.screenRoute: (context) => WelcomeScreen(),
+        SignInScreen.screenRoute: (context) => SignInScreen(),
+        RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
+        ChatScreen.screenRoute: (context) => ChatScreen(),
       },
     );
   }
 }
-
