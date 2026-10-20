@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:message/screens/chat_Screen.dart';
 import 'package:message/widgets/my_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String screenRoute = '/registration_screen';
@@ -11,48 +15,68 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _auth = FirebaseAuth.instance;
+
   late String email;
   late String password;
+
+  bool showSpinner = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              height: 180,
-              child: Image.asset('assets/images/logo.png'),
-            ),
-            SizedBox(height: 50.0),
-            RegisterField(
-              hintText: 'Enter your email',
-              onChanged: (value) {
-                email = value;
-              },
-              obscureText:false,
-            ),
-            SizedBox(height: 15.0),
-            RegisterField(
-              hintText: 'Enter your password',
-              onChanged: (value) {
-                password = value;
-              },
-              obscureText:true,
-            ),
-            SizedBox(height: 20.0),
-            MyButton(
-              color: Colors.blue[800]!,
-              title: 'Register',
-              onPressed: () {
-                print(email);
-                print(password);
-              },
-            ),
-          ],
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                height: 180,
+                child: Image.asset('assets/images/logo.png'),
+              ),
+              SizedBox(height: 50.0),
+              RegisterField(
+                hintText: 'Enter your email',
+                onChanged: (value) {
+                  email = value;
+                },
+                obscureText: false,
+              ),
+              SizedBox(height: 15.0),
+              RegisterField(
+                hintText: 'Enter your password',
+                onChanged: (value) {
+                  password = value;
+                },
+                obscureText: true,
+              ),
+              SizedBox(height: 20.0),
+              MyButton(
+                color: Colors.blue[800]!,
+                title: 'Register',
+                onPressed: () async {
+                  setState(() {
+                    showSpinner = true;
+                  });
+                  try {
+                    final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
+                    Navigator.pushNamed(context, ChatScreen.screenRoute);
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -62,11 +86,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 class RegisterField extends StatelessWidget {
   RegisterField({
     super.key,
-     required this.hintText,
-     required this.onChanged,
-     required this.obscureText
+    required this.hintText,
+    required this.onChanged,
+    required this.obscureText,
   });
-  
+
   final String hintText;
   final ValueChanged<String> onChanged;
   final bool obscureText;
